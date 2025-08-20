@@ -1,12 +1,164 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meine erste GitHub-Seite</title>
+<meta charset="UTF-8">
+<title>High Aura</title>
+<style>
+  /* Schriftarten */
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+  /* Grundlayout */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffe4e1, #fff0f5);
+    position: relative;
+  }
+
+  /* Wolken-Hintergrund */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.ibb.co/6vZ7xgP/clouds.png') repeat;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  /* Überschrift */
+  h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 80px;
+    color: #d45d7f;
+    text-align: center;
+    margin-top: 150px;
+  }
+
+  /* Untertitel */
+  p {
+    text-align: center;
+    font-size: 20px;
+    color: #555;
+  }
+
+  /* Navigation */
+  #navButton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: url('https://i.ibb.co/4NK6k6G/sakura-flower.png') no-repeat center/contain;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  #navMenu {
+    position: fixed;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    background-color: rgba(255, 228, 235, 0.9);
+    padding-top: 100px;
+    transition: left 0.5s;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+    z-index: 9;
+  }
+
+  #navMenu a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #d45d7f;
+    font-weight: bold;
+  }
+
+  /* Sakura-Zweig */
+  #sakura-branch {
+    position: fixed;
+    top: 50px;
+    right: -200px;
+    width: 200px;
+    height: 100px;
+    background: url('https://i.ibb.co/mS9bGrX/sakura-branch.png') no-repeat;
+    background-size: contain;
+    animation: moveBranch 20s linear infinite;
+    z-index: 5;
+  }
+
+  @keyframes moveBranch {
+    0% { right: -200px; }
+    100% { right: 100%; }
+  }
+
+  /* Blütenblätter */
+  .petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('https://i.ibb.co/QY0B6fQ/sakura-petal.png') no-repeat center/contain;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+</style>
 </head>
 <body>
-  <h1>Hallo Welt 🌍</h1>
-  <p>Willkommen auf meiner Website, gehostet mit GitHub Pages!</p>
+
+<div id="navButton"></div>
+
+<div id="navMenu">
+  <a href="#">Shop</a>
+  <a href="#">Kontakt</a>
+</div>
+
+<div id="sakura-branch"></div>
+
+<h1>high aura</h1>
+<p>Here you find everything that makes the heart happy.</p>
+
+<script>
+  // Navigation öffnen/schließen
+  const navButton = document.getElementById('navButton');
+  const navMenu = document.getElementById('navMenu');
+
+  navButton.addEventListener('click', () => {
+    if(navMenu.style.left === '0px'){
+      navMenu.style.left = '-200px';
+    } else {
+      navMenu.style.left = '0px';
+    }
+  });
+
+  // Blütenblätter generieren
+  function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * window.innerWidth + 'px';
+    petal.style.animationDuration = (5 + Math.random()*5) + 's';
+    petal.style.width = (15 + Math.random()*15) + 'px';
+    petal.style.height = petal.style.width;
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+      petal.remove();
+    }, 10000);
+  }
+
+  setInterval(createPetal, 300);
+</script>
+
 </body>
 </html>
